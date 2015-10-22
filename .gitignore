@@ -3,3 +3,10 @@
 
 # vim swap files
 *.sw*
+
+# Code samples
+samples
+
+# .class directories
+runtime
+parser

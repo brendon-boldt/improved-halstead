@@ -5,10 +5,10 @@ import parser.Parser
 
 object Main {
   def main(args: Array[String]) {
-    printImprovedHalstead(args(0))
-    println()
+    //printImprovedHalstead(args(0))
+    //println()
     var parser = new Parser(args(0))
-    println(parser getRegressionVariable)
+    //println(parser getRegressionVariable)
     println(parser getLogitValue)
   }
 

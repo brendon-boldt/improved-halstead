@@ -9,10 +9,10 @@ import org.antlr.v4.runtime._
 import cgrammar._
 
 object Parser {
-  var Y_INTERCEPT = 8.87
-  var LINE_COUNT_COEF = 0.4
+  var Y_INTERCEPT       = 8.87
+  var LINE_COUNT_COEF   = 0.4
   var BYTE_ENTROPY_COEF = -1.5
-  var VOLUME_COEF = -0.033
+  var VOLUME_COEF       = -0.033
 }
 
 class Parser(string: String) {
