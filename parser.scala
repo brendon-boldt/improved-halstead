@@ -65,8 +65,6 @@ class Parser(string: String) {
     for ( i <- 0 until tokens.size ) {
       tokenSet += tokens.get(i).getText
     }
-    //println(tokens.size)
-    //println(tokenSet.size)
     return tokens.size * (math.log(tokenSet.size) / math.log(2))
   }
 
