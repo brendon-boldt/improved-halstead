@@ -5,19 +5,17 @@ import parser.Parser
 
 object Main {
   def main(args: Array[String]) {
-    //printImprovedHalstead(args(0))
-    //println()
-    var parser = new Parser(args(0))
-    //println(parser getRegressionVariable)
-    println(parser getLogitValue)
+    var parser = new Parser(getStringBuilder(args(0)).toString)
+    //println(parser.regressionVariable)
+    println(parser.logitValue)
   }
 
   def printImprovedHalstead(filename: String) {
     var sb = getStringBuilder(filename)
     var parser = new Parser(sb.toString())
-    println( parser getLineCount )
-    println( parser getByteEntropy )
-    println( parser getVolume )
+    println( parser.lineCount )
+    println( parser.byteEntropy)
+    println( parser.volume)
   }
 
   def getStringBuilder(filename: String): StringBuilder = {

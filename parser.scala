@@ -18,6 +18,12 @@ object Parser {
 class Parser(string: String) {
   private var characterMap = scala.collection.mutable.HashMap.empty[Char,Int]
 
+  val volume = getVolume
+  val lineCount = getLineCount
+  val byteEntropy = getByteEntropy
+  val regressionVariable = getRegressionVariable
+  val logitValue = getLogitValue
+
   def generateAST() {
     var in = new ANTLRInputStream
         (new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8)))
@@ -29,7 +35,7 @@ class Parser(string: String) {
       rulesList.asJava ) )
   }
 
-  def getLineCount(): Int = {
+  private def getLineCount(): Int = {
     return string.lines.count((s: String) => true)
   }
 
@@ -42,7 +48,7 @@ class Parser(string: String) {
     return p * (math.log(p) / math.log(2))
   }
 
-  def getByteEntropy(): Double = {
+  private def getByteEntropy(): Double = {
     for ( c <- string.toCharArray ) {
       characterMap += (c -> (characterMap.getOrElse(c, 0) + 1))
     }
@@ -54,7 +60,7 @@ class Parser(string: String) {
     return -entropySum
   }
   
-  def getVolume(): Double = {
+  private def getVolume(): Double = {
     var in = new ANTLRInputStream(
         new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8)))
     var lexer = new CLexer(in)
@@ -68,14 +74,14 @@ class Parser(string: String) {
     return tokens.size * (math.log(tokenSet.size) / math.log(2))
   }
 
-  def getRegressionVariable: Double = {
+  private def getRegressionVariable: Double = {
     return Parser.Y_INTERCEPT
-        .+(Parser.LINE_COUNT_COEF * getLineCount)
-        .+(Parser.BYTE_ENTROPY_COEF * getByteEntropy)
-        .+(Parser.VOLUME_COEF * getVolume)
+        .+(Parser.LINE_COUNT_COEF * lineCount)
+        .+(Parser.BYTE_ENTROPY_COEF * byteEntropy)
+        .+(Parser.VOLUME_COEF * volume)
   }
 
-  def getLogitValue: Double = {
-    return 1 / (1 + math.pow(math.E, -getRegressionVariable))
+  private def getLogitValue: Double = {
+    return 1 / (1 + math.pow(math.E, -regressionVariable))
   }
 }
