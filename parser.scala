@@ -9,10 +9,13 @@ import org.antlr.v4.runtime._
 import cgrammar._
 
 object Parser {
-  var Y_INTERCEPT       = 8.87
-  var LINE_COUNT_COEF   = 0.4
-  var BYTE_ENTROPY_COEF = -1.5
-  var VOLUME_COEF       = -0.033
+  val Y_INTERCEPT       = 8.87
+  val LINE_COUNT_COEF   = 0.4
+  val BYTE_ENTROPY_COEF = -1.5
+  val VOLUME_COEF       = -0.033
+
+  val excludedTokens = Set("<EOF>")
+
 }
 
 class Parser(string: String) {
@@ -66,10 +69,17 @@ class Parser(string: String) {
     var lexer = new CLexer(in)
     var tokenStream = new CommonTokenStream(lexer)
     tokenStream.fill()
-    var tokens = tokenStream.getTokens()
+    var rawTokens = tokenStream.getTokens()
+    var tokens = scala.collection.mutable.MutableList.empty[String]
+    for ( i <- 0 until rawTokens.size ) {
+      var token = rawTokens.get(i).getText
+      if ( !Parser.excludedTokens.contains(token) )
+        tokens += token
+    }
     var tokenSet = scala.collection.mutable.Set.empty[String]
-    for ( i <- 0 until tokens.size ) {
-      tokenSet += tokens.get(i).getText
+    for ( token <- tokens ) {
+      if ( !Parser.excludedTokens.contains(token) )
+        tokenSet += token
     }
     return tokens.size * (math.log(tokenSet.size) / math.log(2))
   }

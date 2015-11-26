@@ -5,8 +5,12 @@ import parser.Parser
 
 object Main {
   def main(args: Array[String]) {
-    var parser = new Parser(getStringBuilder(args(0)).toString)
-    //println(parser.regressionVariable)
+    var parser = new Parser( getStringBuilder(args(0)).toString.stripLineEnd )
+    /* Debugging
+    printImprovedHalstead(args(0))
+    println()
+    println(parser.regressionVariable)
+    */
     println(parser.logitValue)
   }
 
@@ -14,8 +18,8 @@ object Main {
     var sb = getStringBuilder(filename)
     var parser = new Parser(sb.toString())
     println( parser.lineCount )
-    println( parser.byteEntropy)
-    println( parser.volume)
+    println( parser.byteEntropy )
+    println( parser.volume )
   }
 
   def getStringBuilder(filename: String): StringBuilder = {
