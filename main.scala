@@ -9,17 +9,17 @@ object Main {
     /* Debugging
     printImprovedHalstead(args(0))
     println()
-    println(parser.regressionVariable)
+    println(parser.getRegressionVariable)
     */
-    println(parser.logitValue)
+    println( parser getLogitValue )
   }
 
   def printImprovedHalstead(filename: String) {
     var sb = getStringBuilder(filename)
     var parser = new Parser(sb.toString())
-    println( parser.lineCount )
-    println( parser.byteEntropy )
-    println( parser.volume )
+    println( parser.getLineCount )
+    println( parser.getByteEntropy )
+    println( parser.getVolume )
   }
 
   def getStringBuilder(filename: String): StringBuilder = {

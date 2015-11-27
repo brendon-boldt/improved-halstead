@@ -30,9 +30,15 @@
 
 grammar C;
 
-@parser::header {package cgrammar;}
+@parser::header {
+  package cgrammar;
+}
 
-@lexer::header {package cgrammar;}
+@lexer::header {
+  package cgrammar;
+}
+
+@parser:
 
 primaryExpression
     :   Identifier
