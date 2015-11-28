@@ -56,13 +56,28 @@ class Parser(string: String) {
     }
     return -entropySum
   }
+
+  private def setErrorListener(lexer: org.antlr.v4.runtime.Lexer) {
+    lexer.removeErrorListeners
+    lexer.addErrorListener(new BaseErrorListener() {
+      override def syntaxError(a: org.antlr.v4.runtime.Recognizer[_,_], b: Any, c: Int, d: Int, e: String, f: org.antlr.v4.runtime.RecognitionException): Unit = {
+        throw new Throwable("Syntax error encoutered")
+      }
+    });
+  }
   
   def getVolume(): Double = {
     var in = new ANTLRInputStream(
         new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8)))
     var lexer = new CLexer(in)
+    setErrorListener(lexer)
     var tokenStream = new CommonTokenStream(lexer)
-    tokenStream.fill()
+    try {
+      tokenStream.fill()
+    } catch {
+      // Return NaN if there was a syntax error
+      case e: java.lang.Throwable => return Double.NaN
+    }
     var rawTokens = tokenStream.getTokens()
     var tokens = scala.collection.mutable.MutableList.empty[String]
     for ( i <- 0 until rawTokens.size ) {
