@@ -5,7 +5,8 @@ import parser.Parser
 
 object Main {
   def main(args: Array[String]) {
-    var parser = new Parser( getStringBuilder(args(0)).toString.stripLineEnd )
+    var fileString = getStringBuilder(args(0)).toString.stripLineEnd
+    var parser = new Parser( fileString )
     /* Debugging
     printImprovedHalstead(args(0))
     println()
@@ -16,7 +17,7 @@ object Main {
 
   def printImprovedHalstead(filename: String) {
     var sb = getStringBuilder(filename)
-    var parser = new Parser(sb.toString())
+    var parser = new Parser(sb.toString().stripLineEnd)
     println( parser.getLineCount )
     println( parser.getByteEntropy )
     println( parser.getVolume )
