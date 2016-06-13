@@ -1,2 +1,5 @@
+JAR = cgrammar.jar
+
 all: *.scala
-	fsc -language:postfixOps *.scala
+	fsc -classpath $$CLASSPATH:$(JAR) *.scala
+

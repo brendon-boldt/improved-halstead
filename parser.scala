@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets
 import scala.collection.mutable.HashMap
 import scala.collection.JavaConverters._
 import scala.math
+import scala.language.postfixOps;
 import org.antlr.v4.runtime._
 import cgrammar._
 

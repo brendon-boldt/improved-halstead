@@ -2,6 +2,7 @@ package runtime
 
 import scala.io.Source
 import parser.Parser
+import scala.language.postfixOps;
 
 object Main {
   def main(args: Array[String]) {

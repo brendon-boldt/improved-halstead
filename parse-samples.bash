@@ -4,7 +4,7 @@ directory=$1
 samples=$(ls $directory)
 for sample in $samples
 do
-  value=$(scala runtime.Main $directory/$sample)
+  value=$(scala -classpath $CLASSPATH:cgrammar.jar runtime.Main $directory/$sample)
   printf "%-8s\t%-8s\n" $sample $value
   #printf "%s" $sample
   #echo $(scala runtime.Main $directory/$sample)
